@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:id="@+id/radio">
+
+        <RadioButton
+            android:id="@+id/newgoods"
+            style="@style/main_menu"
+            android:drawableTop="@drawable/selector_menu_item_new_good"
+            android:text="@string/newGoods"
+            android:checked="true"/>
+
+        <RadioButton
+            android:id="@+id/boutique"
+            style="@style/main_menu"
+            android:layout_toRightOf="@+id/newgoods"
+            android:drawableTop="@drawable/selector_menu_item_boutique"
+            android:text="@string/boutique"
+            android:checked="false"/>
+
+        <RadioButton
+            android:id="@+id/category"
+            style="@style/main_menu"
+            android:drawableTop="@drawable/selector_menu_item_category"
+            android:text="@string/category"
+            android:checked="false"/>
+
+        <RadioButton
+            android:id="@+id/cart"
+            style="@style/main_menu"
+            android:layout_toRightOf="@id/category"
+            android:drawableTop="@drawable/selector_menu_item_cart"
+            android:text="@string/cart"
+            android:checked="false"/>
+
+        <RadioButton
+            android:id="@+id/contact"
+            style="@style/main_menu"
+            android:layout_toRightOf="@id/cart"
+            android:drawableTop="@drawable/selector_menu_item_personal_center"
+            android:text="@string/personal"
+            android:checked="false"/>
+    </RadioGroup>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/radio"
+        android:id="@+id/framlayout"/>
+</RelativeLayout>
