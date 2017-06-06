@@ -13,6 +13,7 @@ import com.example.administrator.kotlin.utils.BitmapUtils
 import com.example.administrator.kotlin.utils.FileUtils
 import com.example.administrator.kotlin.utils.L
 import com.example.kotlin_demo.R
+import com.example.kotlin_demo.application.I
 import com.example.kotlin_demo.application.I.*
 
 
@@ -358,11 +359,11 @@ class ImageLoader private constructor(baseUrl: String) {
         }
 
         fun downloadImg(context: Context, imageView: ImageView, thumb: String) {
-            setImage(DOWNLOAD_IMG_URL + thumb, context, imageView, true)
+            setImage(I.DOWNLOAD_IMG_URL + thumb, context, imageView, true)
         }
 
         fun downloadImg(context: Context, imageView: ImageView, thumb: String, isDragging: Boolean) {
-            setImage(DOWNLOAD_IMG_URL + thumb, context, imageView, isDragging)
+            setImage(I.DOWNLOAD_IMG_URL + thumb, context, imageView, isDragging)
         }
 
         fun setImage(url: String, context: Context, imageView: ImageView, isDragging: Boolean) {
@@ -379,7 +380,7 @@ class ImageLoader private constructor(baseUrl: String) {
         // name_or_hxid=a952700&avatarType=0&m_avatar_suffix=.jpg&width=200&height=200
         fun getAvatarUrl(user: User?): String? {
             if (user != null) {
-                val url = DOWNLOAD_AVATAR_URL + NAME_OR_HXID + "=" + user.muserName+AND + AVATAR_TYPE + "=" + user.mavatarPath + AND + AVATAR_SUFFIX+"=" + user.mavatarSuffix + AND + "width=200&height=200" + "&" + user.mavatarLastUpdateTime
+                val url = I.DOWNLOAD_AVATAR_URL + I.NAME_OR_HXID + "=" + user.muserName+I.AND + I.AVATAR_TYPE + "=" + user.mavatarPath + I.AND + I.AVATAR_SUFFIX+"=" + user.mavatarSuffix + I.AND + "width=200&height=200" + "&" + user.mavatarLastUpdateTime
                 L.e("useravatar=" + url)
                 return url
             }

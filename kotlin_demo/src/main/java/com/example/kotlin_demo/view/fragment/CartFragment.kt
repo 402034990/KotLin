@@ -16,6 +16,7 @@ import com.example.administrator.kotlin.bean.User
 import com.example.administrator.kotlin.utils.ResultUtils
 
 import com.example.kotlin_demo.R
+import com.example.kotlin_demo.application.I
 import com.example.kotlin_demo.view.adapter.CartAdapter
 import com.example.kotlin_demo.model.net.IUserModel
 import com.example.kotlin_demo.model.net.OnCompleteListener
@@ -50,7 +51,7 @@ class CartFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        initData(ACTION_DOWNLOAD)
+        initData(I.ACTION_DOWNLOAD)
     }
 
     private fun initData(action: Int) {
@@ -64,8 +65,8 @@ class CartFragment : Fragment() {
                         mTvNothing.visibility = View.GONE
                         mArrayList = ResultUtils.array2List(result)
                         when (action) {
-                            ACTION_DOWNLOAD -> mAdapter?.initArrayList(mArrayList!!)
-                            ACTION_PULL_DOWN -> {
+                            I.ACTION_DOWNLOAD -> mAdapter?.initArrayList(mArrayList!!)
+                            I.ACTION_PULL_DOWN -> {
                                 tvRefreshHint_cart.visibility = View.GONE
                                 srl_cart.isRefreshing = false
                                 mAdapter?.initArrayList(mArrayList!!)
@@ -97,7 +98,7 @@ class CartFragment : Fragment() {
         srl_cart.setOnRefreshListener {
             tvRefreshHint_cart.visibility = View.VISIBLE
             srl_cart.isRefreshing = true
-            initData(ACTION_PULL_DOWN)
+            initData(I.ACTION_PULL_DOWN)
         }
     }
 
@@ -125,10 +126,10 @@ class CartFragment : Fragment() {
         val position = v.tag as Int
         when(v.id){
             R.id.addCart -> {
-                updateCart(position, ACTION_ADD_CART)
+                updateCart(position, I.ACTION_ADD_CART)
             }
             R.id.delCart -> {
-                updateCart(position,ACTION_DELETE_CART)
+                updateCart(position,I.ACTION_DELETE_CART)
             }
         }
     }

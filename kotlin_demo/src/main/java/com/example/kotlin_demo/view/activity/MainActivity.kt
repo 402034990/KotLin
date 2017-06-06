@@ -9,6 +9,7 @@ import android.widget.RadioButton
 import com.example.kotlin_demo.R
 import kotlinx.android.synthetic.main.activity_main.*
 import android.support.v4.app.Fragment
+import com.example.kotlin_demo.application.I
 import com.example.kotlin_demo.application.I.*
 import com.example.kotlin_demo.application.KotLinApplication
 import com.example.kotlin_demo.view.fragment.*
@@ -72,14 +73,14 @@ class MainActivity : AppCompatActivity(){
             }
             R.id.cart ->{
                 if (KotLinApplication.instance!!.user == null) {
-                    startActivityForResult(Intent(this, LoginActivity::class.java), REQUEST_CODE_LOGIN_FROM_CART)
+                    startActivityForResult(Intent(this, LoginActivity::class.java), I.REQUEST_CODE_LOGIN_FROM_CART)
                 } else {
                     index = 3
                 }
             }
             R.id.contact ->{
                 if (KotLinApplication.instance!!.user == null) {
-                    startActivityForResult(Intent(this, LoginActivity::class.java), REQUEST_CODE_LOGIN)
+                    startActivityForResult(Intent(this, LoginActivity::class.java), I.REQUEST_CODE_LOGIN)
                 } else {
                     index = 4
                 }
@@ -110,10 +111,10 @@ class MainActivity : AppCompatActivity(){
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == REQUEST_CODE_LOGIN_FROM_CART) {
+            if (requestCode == I.REQUEST_CODE_LOGIN_FROM_CART) {
                 index = 3
             }
-            if (requestCode == REQUEST_CODE_LOGIN) {
+            if (requestCode == I.REQUEST_CODE_LOGIN) {
                 index = 4
             }
 

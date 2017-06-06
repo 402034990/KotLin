@@ -14,6 +14,7 @@ import com.example.administrator.kotlin.bean.NewGoodsBean
 import com.example.administrator.kotlin.utils.ResultUtils
 
 import com.example.kotlin_demo.R
+import com.example.kotlin_demo.application.I
 import com.example.kotlin_demo.view.adapter.NewGoodsAdapter
 import com.example.kotlin_demo.application.I.*
 import com.example.kotlin_demo.model.net.IModel
@@ -29,9 +30,9 @@ class NewGoodsFragment : Fragment() {
     var mAdapter: NewGoodsAdapter? = null
     var manager: GridLayoutManager? = null
     var mArrayList: ArrayList<NewGoodsBean>? = null
-    var PAGE_ID: Int = PAGE_ID_DEFAULT
-    val PAGE_SIZE: Int = PAGE_SIZE_DEFAULT
-    var action_download: Int = ACTION_DOWNLOAD
+    var PAGE_ID: Int = I.PAGE_ID_DEFAULT
+    val PAGE_SIZE: Int = I.PAGE_SIZE_DEFAULT
+    var action_download: Int = I.ACTION_DOWNLOAD
     var pd: ProgressDialog? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
@@ -70,7 +71,7 @@ class NewGoodsFragment : Fragment() {
                 if (lastPosition != null) {
                     if (newState == RecyclerView.SCROLL_STATE_IDLE && mAdapter?.isMore!! && lastPosition >= mAdapter?.itemCount!! - 1) {
                         PAGE_ID++
-                        iniData(ACTION_PULL_UP)
+                        iniData(I.ACTION_PULL_UP)
                         manager?.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup(){
                             override fun getSpanSize(position: Int): Int {
                                 if (position == mAdapter?.itemCount!! - 1) {
@@ -91,14 +92,14 @@ class NewGoodsFragment : Fragment() {
             PAGE_ID = 1
             swipeRefresh.isRefreshing = true
             textHint.visibility = View.VISIBLE
-            iniData(ACTION_PULL_DOWN)
+            iniData(I.ACTION_PULL_DOWN)
         }
     }
 
     private fun iniData(action: Int?) {
         var model: IModel? = Model()
         initDialog()
-        model?.findNewGoods(context, CAT_ID, PAGE_ID, PAGE_SIZE, object : OnCompleteListener<Array<NewGoodsBean>> {
+        model?.findNewGoods(context, I.CAT_ID, PAGE_ID, PAGE_SIZE, object : OnCompleteListener<Array<NewGoodsBean>> {
             override fun onSuccess(result: Array<NewGoodsBean>) {
                 mAdapter?.isMore = !(result == null || result.isEmpty())
                 if (result != null) {
@@ -109,17 +110,17 @@ class NewGoodsFragment : Fragment() {
                         mAdapter?.FootText = getString(R.string.no_more)
                     }
                     when (action) {
-                        ACTION_DOWNLOAD -> {
+                        I.ACTION_DOWNLOAD -> {
                             mAdapter?.initArrayList(mArrayList)
                         }
 
-                        ACTION_PULL_DOWN -> {
+                        I.ACTION_PULL_DOWN -> {
                             swipeRefresh.isRefreshing = false
                             textHint.visibility = View.GONE
                             mAdapter?.initArrayList(mArrayList)
                         }
 
-                        ACTION_PULL_UP -> {
+                        I.ACTION_PULL_UP -> {
                             mAdapter?.addAllArrayList(mArrayList)
                         }
                     }
@@ -140,7 +141,7 @@ class NewGoodsFragment : Fragment() {
         dismissDialog()
     }
     private fun initView() {
-        manager = GridLayoutManager(context, COLUM_NUM)
+        manager = GridLayoutManager(context, I.COLUM_NUM)
         mArrayList = ArrayList()
         mAdapter = NewGoodsAdapter(context, mArrayList!!)
         mRecyclerView.adapter = mAdapter

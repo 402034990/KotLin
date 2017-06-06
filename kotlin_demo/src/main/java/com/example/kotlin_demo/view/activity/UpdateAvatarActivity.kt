@@ -35,11 +35,11 @@ import com.example.administrator.kotlin.utils.CommonUtils
 import com.example.administrator.kotlin.utils.ResultUtils
 import com.example.administrator.kotlin.utils.SharePrefrenceUtils
 import com.example.administrator.kotlin.utils.UserDao
+import com.example.kotlin_demo.application.I
 import com.example.kotlin_demo.application.I.*
 import com.example.kotlin_demo.application.KotLinApplication
 import com.example.kotlin_demo.model.net.OnCompleteListener
 import com.example.kotlin_demo.model.net.UserModel
-import com.example.kotlin_demo.model.utils.*
 import com.example.myapplication.utils.ImageLoader
 import java.io.BufferedOutputStream
 import java.io.FileOutputStream
@@ -282,7 +282,7 @@ class UpdateAvatarActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun saveBitmapFile(bitmap: Bitmap?): File? {
         if (bitmap != null) {
-            val imagePath = getAvatarPath(this@UpdateAvatarActivity, AVATAR_TYPE) + "/" + getAvatarName() + ".jpg"
+            val imagePath = getAvatarPath(this@UpdateAvatarActivity, I.AVATAR_TYPE) + "/" + getAvatarName() + ".jpg"
             val file = File(imagePath)//将要保存图片的路径
             try {
                 val bos = BufferedOutputStream(FileOutputStream(file))
@@ -311,7 +311,7 @@ class UpdateAvatarActivity : AppCompatActivity(), View.OnClickListener {
             override fun onSuccess(s: String) {
                 val result = ResultUtils.getResultFromJson(s, User::class.java)
                 if (result != null) {
-                    if (result.retCode == MSG_UPLOAD_AVATAR_FAIL) {
+                    if (result.retCode == I.MSG_UPLOAD_AVATAR_FAIL) {
                         CommonUtils.showLongToast(R.string.update_user_avatar_fail)
                     } else {
                         setAvatar(result)

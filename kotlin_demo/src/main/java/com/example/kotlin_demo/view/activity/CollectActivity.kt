@@ -10,6 +10,7 @@ import com.example.administrator.kotlin.bean.CollectBean
 import com.example.administrator.kotlin.utils.ResultUtils
 
 import com.example.kotlin_demo.R
+import com.example.kotlin_demo.application.I
 import com.example.kotlin_demo.view.adapter.CollectAdapter
 import com.example.kotlin_demo.application.I.*
 import com.example.kotlin_demo.application.KotLinApplication
@@ -22,7 +23,7 @@ class CollectActivity : AppCompatActivity() {
     var model: IUserModel? = null
     var mArrayList: ArrayList<CollectBean>? = null
     var mCollectList: ArrayList<CollectBean>? = null
-    var pageId = PAGE_ID_DEFAULT
+    var pageId = I.PAGE_ID_DEFAULT
     var pd: ProgressDialog? = null
     var manager: GridLayoutManager? = null
     var mAdapter: CollectAdapter? = null
@@ -31,20 +32,20 @@ class CollectActivity : AppCompatActivity() {
         setContentView(R.layout.activity_collect)
         initView()
         setOnListener()
-        initData(pageId,ACTION_DOWNLOAD)
+        initData(pageId,I.ACTION_DOWNLOAD)
     }
 
     private fun initData(pageId: Int, action: Int) {
         initDialog()
         model = UserModel()
         val user = KotLinApplication.instance!!.user
-        model?.findCollects(this, user!!.muserName!!,pageId,PAGE_SIZE_DEFAULT,object : OnCompleteListener<Array<CollectBean>> {
+        model?.findCollects(this, user!!.muserName!!,pageId,I.PAGE_SIZE_DEFAULT,object : OnCompleteListener<Array<CollectBean>> {
             override fun onSuccess(s: Array<CollectBean>) {
                 dismiss()
                 mAdapter?.isMore = s!=null&&!s.isEmpty()
                 if (s != null) {
                     mArrayList = ResultUtils.array2List(s)
-                    if (mArrayList?.size!! < PAGE_SIZE_DEFAULT) {
+                    if (mArrayList?.size!! < I.PAGE_SIZE_DEFAULT) {
                         center()
                     }
 
@@ -56,13 +57,13 @@ class CollectActivity : AppCompatActivity() {
                     }
 
                     when (action) {
-                        ACTION_DOWNLOAD ->{
+                        I.ACTION_DOWNLOAD ->{
                             mCollectList?.clear()
                             mCollectList?.addAll(mArrayList!!)
                             mAdapter?.initArrayList(mArrayList!!)
                         }
 
-                        ACTION_PULL_DOWN ->{
+                        I.ACTION_PULL_DOWN ->{
                             mCollectList?.clear()
                             mCollectList?.addAll(mArrayList!!)
                             collect_hint.visibility = View.GONE
@@ -70,7 +71,7 @@ class CollectActivity : AppCompatActivity() {
                             mAdapter?.initArrayList(mArrayList!!)
                         }
 
-                        ACTION_PULL_UP ->{
+                        I.ACTION_PULL_UP ->{
                             mCollectList?.addAll(mArrayList!!)
                             mAdapter?.notifyDataSetChanged()
                         }
@@ -109,7 +110,7 @@ class CollectActivity : AppCompatActivity() {
         }
     }
     private fun initView() {
-        manager = GridLayoutManager(this,COLUM_NUM)
+        manager = GridLayoutManager(this,I.COLUM_NUM)
         mCollectList = ArrayList()
         mAdapter = CollectAdapter(this, mCollectList!!)
         collect_recyclerview.adapter = mAdapter
@@ -131,7 +132,7 @@ class CollectActivity : AppCompatActivity() {
                 if (newState == RecyclerView.SCROLL_STATE_IDLE && lastPosition!! <= mAdapter?.itemCount!! - 1 && mAdapter?.isMore!!) {
                     pageId++
                     center()
-                    initData(pageId,ACTION_PULL_UP)
+                    initData(pageId,I.ACTION_PULL_UP)
                 }
             }
         })
@@ -142,7 +143,7 @@ class CollectActivity : AppCompatActivity() {
             pageId = 1
             collect_hint.visibility = View.VISIBLE
             Collect_swip.isRefreshing = true
-            initData(pageId,ACTION_PULL_DOWN)
+            initData(pageId,I.ACTION_PULL_DOWN)
         }
     }
 }

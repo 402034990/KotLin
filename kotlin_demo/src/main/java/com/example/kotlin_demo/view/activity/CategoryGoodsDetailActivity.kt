@@ -12,8 +12,8 @@ import com.example.administrator.kotlin.bean.NewGoodsBean
 import com.example.administrator.kotlin.utils.ResultUtils
 
 import com.example.kotlin_demo.R
+import com.example.kotlin_demo.application.I
 import com.example.kotlin_demo.view.adapter.NewGoodsAdapter
-import com.example.kotlin_demo.application.I.*
 import com.example.kotlin_demo.model.net.IModel
 import com.example.kotlin_demo.model.net.Model
 import com.example.kotlin_demo.model.net.OnCompleteListener
@@ -27,8 +27,8 @@ class CategoryGoodsDetailActivity : AppCompatActivity(){
     var addTimeAsc = false
     var model: IModel? = null
     var mArrayList: ArrayList<NewGoodsBean>? = null
-    var PageId = PAGE_ID_DEFAULT
-    var PageSize = PAGE_SIZE_DEFAULT
+    var PageId = I.PAGE_ID_DEFAULT
+    var PageSize = I.PAGE_SIZE_DEFAULT
     var mAdapter: NewGoodsAdapter? = null
     var manager: GridLayoutManager? = null
     var cateId: Int? = null
@@ -45,7 +45,7 @@ class CategoryGoodsDetailActivity : AppCompatActivity(){
         catchildFilterButton.text = mGroupName
         catchildFilterButton.setOnCatFilterClickListener(mGroupName, arrayList!!)
         initView()
-        initData(ACTION_DOWNLOAD)
+        initData(I.ACTION_DOWNLOAD)
         setListener()
     }
 
@@ -66,13 +66,13 @@ class CategoryGoodsDetailActivity : AppCompatActivity(){
             R.id.arrow_down -> {
                 Log.i("main","arrow_down")
                 priceAsc = !priceAsc
-                sortBy = if (priceAsc) SORT_BY_PRICE_ASC else SORT_BY_PRICE_DESC
+                sortBy = if (priceAsc) I.SORT_BY_PRICE_ASC else I.SORT_BY_PRICE_DESC
                 arrow_down.setImageResource(getImagePrice())
             }
             R.id.arrow_up -> {
                 Log.i("main","arrow_up")
                 addTimeAsc = !addTimeAsc
-                sortBy = if (addTimeAsc) SORT_BY_ADDTIME_ASC else SORT_BY_ADDTIME_DESC
+                sortBy = if (addTimeAsc) I.SORT_BY_ADDTIME_ASC else I.SORT_BY_ADDTIME_DESC
                 arrow_up.setImageResource(getImageTime())
             }
         }
@@ -103,7 +103,7 @@ class CategoryGoodsDetailActivity : AppCompatActivity(){
                 if (lastPosition != null) {
                     if (newState == RecyclerView.SCROLL_STATE_IDLE && mAdapter?.isMore!! && lastPosition >= mAdapter?.itemCount!! - 1) {
                         PageId++
-                        initData(ACTION_PULL_UP)
+                        initData(I.ACTION_PULL_UP)
                         manager?.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                             override fun getSpanSize(position: Int): Int {
                                 if (position == mAdapter?.itemCount!! - 1) {
@@ -124,7 +124,7 @@ class CategoryGoodsDetailActivity : AppCompatActivity(){
             PageId = 1
             swiperefresh.isRefreshing = true
             texthint.visibility = View.VISIBLE
-            initData(ACTION_PULL_DOWN)
+            initData(I.ACTION_PULL_DOWN)
         }
     }
 
@@ -152,14 +152,14 @@ class CategoryGoodsDetailActivity : AppCompatActivity(){
 
                     mArrayList = ResultUtils.array2List(result)
                     when (action) {
-                        ACTION_DOWNLOAD -> {
+                        I.ACTION_DOWNLOAD -> {
                             mAdapter?.initArrayList(mArrayList)
                         }
-                        ACTION_PULL_UP -> {
+                        I.ACTION_PULL_UP -> {
                             mAdapter?.addAllArrayList(mArrayList)
                         }
 
-                        ACTION_PULL_DOWN -> {
+                        I.ACTION_PULL_DOWN -> {
                             swiperefresh.isRefreshing = false
                             texthint.visibility = View.GONE
                             mAdapter?.initArrayList(mArrayList)
@@ -181,7 +181,7 @@ class CategoryGoodsDetailActivity : AppCompatActivity(){
 
         mArrayList = ArrayList()
         mAdapter = NewGoodsAdapter(this, mArrayList!!)
-        manager = GridLayoutManager(this, COLUM_NUM)
+        manager = GridLayoutManager(this, I.COLUM_NUM)
         category_detail_recyclerview.adapter = mAdapter
         category_detail_recyclerview.layoutManager = manager
         model = Model()

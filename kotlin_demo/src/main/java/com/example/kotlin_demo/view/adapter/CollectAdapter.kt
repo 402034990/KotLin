@@ -31,7 +31,7 @@ class CollectAdapter(var context: Context, var list: ArrayList<CollectBean>) : R
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
         if (position == itemCount - 1) {
             var footer: FooterViewHolder = holder as FooterViewHolder
-            if (itemCount < PAGE_SIZE_DEFAULT) {
+            if (itemCount < I.PAGE_SIZE_DEFAULT) {
                 footer.mtv_footer.visibility = View.GONE
             } else {
                 footer.mtv_footer.text = FootText
@@ -46,7 +46,7 @@ class CollectAdapter(var context: Context, var list: ArrayList<CollectBean>) : R
         collect.collectDelete.setOnClickListener { deleteCollect(bean, position) }
         collect.mCollectIv.setOnClickListener {
             (context as CollectActivity).startActivityForResult(Intent(context, GoodsDetailsActivity::class.java)
-                    .putExtra("GoodsId", bean.goodsId), REQUEST_CODE_COLLECT)
+                    .putExtra("GoodsId", bean.goodsId), I.REQUEST_CODE_COLLECT)
         }
     }
 
@@ -72,8 +72,8 @@ class CollectAdapter(var context: Context, var list: ArrayList<CollectBean>) : R
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
         var holder: RecyclerView.ViewHolder? = null
         when (viewType) {
-            TYPE_FOOTER -> holder = FooterViewHolder(View.inflate(context, R.layout.newgoods_footer, null))
-            TYPE_ITEM -> holder = CollectViewHolder(View.inflate(context, R.layout.collect_item, null))
+            I.TYPE_FOOTER -> holder = FooterViewHolder(View.inflate(context, R.layout.newgoods_footer, null))
+            I.TYPE_ITEM -> holder = CollectViewHolder(View.inflate(context, R.layout.collect_item, null))
         }
         return holder!!
     }
@@ -84,9 +84,9 @@ class CollectAdapter(var context: Context, var list: ArrayList<CollectBean>) : R
 
     override fun getItemViewType(position: Int): Int {
         if (position == itemCount - 1) {
-            return TYPE_FOOTER
+            return I.TYPE_FOOTER
         }
-        return TYPE_ITEM
+        return I.TYPE_ITEM
     }
 
     class CollectViewHolder(layout: View) : RecyclerView.ViewHolder(layout) {

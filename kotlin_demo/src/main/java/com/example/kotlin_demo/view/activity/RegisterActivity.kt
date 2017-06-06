@@ -52,10 +52,10 @@ class RegisterActivity : AppCompatActivity() {
             model?.register(this, mUserName!!, mNick!!, MD5.getMessageDigest(mPassWord!!), object : OnCompleteListener<String> {
                 override fun onSuccess(s: String) {
                     val result = ResultUtils.getResultFromJson(s, User::class.java)
-                    if (result!!.retCode == MSG_REGISTER_USERNAME_EXISTS) {
+                    if (result!!.retCode == I.MSG_REGISTER_USERNAME_EXISTS) {
                         registeruserName.requestFocus()
                         registeruserName.error = getString(R.string.register_fail_exists)
-                    } else if (result.retCode == MSG_REGISTER_FAIL) {
+                    } else if (result.retCode == I.MSG_REGISTER_FAIL) {
                         registeruserName.requestFocus()
                         registeruserName.error = getString(R.string.register_fail)
                     } else {

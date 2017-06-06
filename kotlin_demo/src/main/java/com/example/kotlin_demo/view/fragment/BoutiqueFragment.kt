@@ -13,6 +13,7 @@ import com.example.administrator.kotlin.bean.BoutiqueBean
 import com.example.administrator.kotlin.utils.ResultUtils
 
 import com.example.kotlin_demo.R
+import com.example.kotlin_demo.application.I
 import com.example.kotlin_demo.application.I.*
 import com.example.kotlin_demo.view.adapter.BoutiqueAdapter
 import com.example.kotlin_demo.model.net.IModel
@@ -29,7 +30,7 @@ class BoutiqueFragment : Fragment() {
     var mAdapter: BoutiqueAdapter? = null
     var mArrayList: ArrayList<BoutiqueBean>? = null
     var pd: ProgressDialog? = null
-    var action_download: Int = ACTION_DOWNLOAD
+    var action_download: Int = I.ACTION_DOWNLOAD
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater!!.inflate(R.layout.fragment_new_goods, container, false)
@@ -46,7 +47,7 @@ class BoutiqueFragment : Fragment() {
         swipeRefresh.setOnRefreshListener {
             swipeRefresh.isRefreshing = true
             textHint.visibility = View.VISIBLE
-            iniData(ACTION_PULL_DOWN)
+            iniData(I.ACTION_PULL_DOWN)
         }
     }
 
@@ -71,12 +72,12 @@ class BoutiqueFragment : Fragment() {
             override fun onSuccess(result: Array<BoutiqueBean>) {
                 mArrayList = ResultUtils.array2List(result)
                 when (action) {
-                    ACTION_PULL_DOWN -> {
+                    I.ACTION_PULL_DOWN -> {
                         swipeRefresh.isRefreshing = false
                         textHint.visibility = View.GONE
                         mAdapter?.addList(mArrayList)
                     }
-                    ACTION_DOWNLOAD -> {
+                    I.ACTION_DOWNLOAD -> {
                         mAdapter?.addList(mArrayList)
                     }
                 }

@@ -67,9 +67,9 @@ class LoginActivity : AppCompatActivity() {
                 if (s != null) {
                     val result = ResultUtils.getResultFromJson(s, User::class.java)
                     if (result != null) {
-                        if (result.retCode == MSG_LOGIN_UNKNOW_USER) {
+                        if (result.retCode == I.MSG_LOGIN_UNKNOW_USER) {
                             Toast.makeText(this@LoginActivity, getString(R.string.login_fail_unknow_user), Toast.LENGTH_SHORT).show()
-                        }else if (result.retCode == MSG_LOGIN_UNKNOW_USER) {
+                        }else if (result.retCode == I.MSG_LOGIN_UNKNOW_USER) {
                             Toast.makeText(this@LoginActivity, getString(R.string.login_fail_error_password), Toast.LENGTH_SHORT).show()
                         } else {
                             login(result)

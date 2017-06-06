@@ -13,6 +13,7 @@ import com.example.administrator.kotlin.utils.AntiShake
 import com.example.administrator.kotlin.utils.CommonUtils
 
 import com.example.kotlin_demo.R
+import com.example.kotlin_demo.application.I
 import com.example.kotlin_demo.application.I.*
 import com.example.kotlin_demo.application.KotLinApplication
 import kotlinx.android.synthetic.main.activity_goods_detail.*
@@ -165,7 +166,7 @@ class GoodsDetailsActivity : AppCompatActivity() {
                     detail_EnglishName.text = result.goodsEnglishName
                     detail_name.text = result.goodsName
                     detail_currentprice.text = result.currencyPrice
-                    detail_webview.loadDataWithBaseURL(null, result.goodsBrief!!.trim(), TEXT_HTML, UTF_8, null)
+                    detail_webview.loadDataWithBaseURL(null, result.goodsBrief!!.trim(), I.TEXT_HTML, I.UTF_8, null)
                     detail_back.setOnClickListener {
                         finish()
                     }

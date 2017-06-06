@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.administrator.kotlin.bean.NewGoodsBean
 import com.example.kotlin_demo.R
+import com.example.kotlin_demo.application.I
 import com.example.kotlin_demo.view.activity.GoodsDetailsActivity
 import com.example.kotlin_demo.application.I.*
 import com.example.myapplication.utils.ImageLoader
@@ -28,11 +29,11 @@ class NewGoodsAdapter(var context: Context, var list: ArrayList<NewGoodsBean>) :
         var holder: RecyclerView.ViewHolder? = null
         var layout: View
         when (viewType) {
-            TYPE_FOOTER -> {
+            I.TYPE_FOOTER -> {
                 layout = View.inflate(context, R.layout.newgoods_footer, null)
                 holder = FooterViewHolder(layout)
             }
-            TYPE_ITEM -> {
+            I.TYPE_ITEM -> {
                 layout = View.inflate(context, R.layout.newgoods_item, null)
                 holder = NewGoodsViewHolder(layout)
             }
@@ -63,9 +64,9 @@ class NewGoodsAdapter(var context: Context, var list: ArrayList<NewGoodsBean>) :
 
     override fun getItemViewType(position: Int): Int {
         if (position == itemCount - 1) {
-            return TYPE_FOOTER
+            return I.TYPE_FOOTER
         } else {
-            return TYPE_ITEM
+            return I.TYPE_ITEM
         }
     }
 
@@ -83,10 +84,10 @@ class NewGoodsAdapter(var context: Context, var list: ArrayList<NewGoodsBean>) :
         Collections.sort(list) { o1, o2 ->
             var result = 0
             when (sortBy) {
-                SORT_BY_PRICE_ASC -> result = getPrice(o1.currencyPrice!!) - getPrice(o2.currencyPrice!!)
-                SORT_BY_PRICE_DESC -> result = getPrice(o2.currencyPrice!!) - getPrice(o1.currencyPrice!!)
-                SORT_BY_ADDTIME_ASC -> result = (o1.addTime!! - o2.addTime!!).toInt()
-                SORT_BY_ADDTIME_DESC -> result = (o2.addTime!! - o1.addTime!!).toInt()
+                I.SORT_BY_PRICE_ASC -> result = getPrice(o1.currencyPrice!!) - getPrice(o2.currencyPrice!!)
+                I.SORT_BY_PRICE_DESC -> result = getPrice(o2.currencyPrice!!) - getPrice(o1.currencyPrice!!)
+                I.SORT_BY_ADDTIME_ASC -> result = (o1.addTime!! - o2.addTime!!).toInt()
+                I.SORT_BY_ADDTIME_DESC -> result = (o2.addTime!! - o1.addTime!!).toInt()
             }
             result
         }
